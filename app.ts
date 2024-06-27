@@ -3,6 +3,8 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { errorHandler } from "./api/middlewares/errorHandler";
 import userRoutes from "./api/routes/userRoutes";
+import testRoutes from "./api/routes/testRoutes";
+
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/test", testRoutes);
+
 
 // Error handler middleware (ensure this goes after all routes)
 app.use(errorHandler);
