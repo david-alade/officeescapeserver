@@ -16,12 +16,32 @@ export const createUser = async (
   }
 };
 
+export const getUser = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { name, bio, interests, jpmc_location } = req.body;
+    const user = await userService.getUser(req.tokenUserID!, name, bio, interests, jpmc_location);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+
+};
+
 export const updateUser = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const { name, bio, interests } = req.body;
-  const user = await userService.updateUser(req.tokenUserID!, name, bio, interests);
-  res.status(200).json(user);
+  try {
+    console.log("Updating user profile");
+    const { name, bio, interests, jpmc_location } = req.body;
+    const user = await userService.updateUser(req.tokenUserID!, name, bio, interests, jpmc_location);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 };
