@@ -1,4 +1,4 @@
-import * as userRepository from "../repositories/userRepository";
+import * as userRepository from '../repositories/userRepository';
 
 export const createUser = async (userID: string) => {
   try {

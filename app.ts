@@ -1,8 +1,9 @@
 /* eslint-disable import/no-named-as-default */
-import express, { Express, Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-import { errorHandler } from "./api/middlewares/errorHandler";
-import userRoutes from "./api/routes/userRoutes";
+import express, { Express, Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
+import { errorHandler } from './api/middlewares/errorHandler';
+import userRoutes from './api/routes/userRoutes';
+import eventRoutes from './api/routes/eventRoutes';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/events', eventRoutes);
 
 // Error handler middleware (ensure this goes after all routes)
 app.use(errorHandler);
