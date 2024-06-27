@@ -12,7 +12,20 @@ export const updateUser = async (
   userId: string,
   name: string,
   bio: string,
-  interests: string[]
+  interests: string[],
+  jpmc_location: string[]
 ) => {
-  await userRepository.updateUser(userId, name, bio, interests);
+  await userRepository.updateUser(userId, name, bio, interests, jpmc_location);
 };
+
+
+export const getUser = async (
+  userId: string,
+  name: string,
+  bio: string,
+  interests: string[],
+  jpmc_location: string[]
+) => {
+  await userRepository.getUser(userId);
+};
+

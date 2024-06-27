@@ -1,4 +1,4 @@
-## Start the server
+## How to start the server
 
 -Prequisites
 npm install express
