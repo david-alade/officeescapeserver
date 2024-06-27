@@ -37,7 +37,6 @@ export const updateUser = async (userID: string, name: string, bio: string, inte
 
 export const getUser = async (userID: string) => {
   try {
-    // Ensure supabase is initialized properly and accessible
     if (!supabase) {
       throw new Error("Supabase client is not initialized");
     }
