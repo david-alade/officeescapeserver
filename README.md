@@ -7,8 +7,9 @@ Start server by entering >>> node app.js
 
 Verify server is running by going to >>> Server is running on http://localhost:3000
 
+## API Endpoints
 
-getEvent: 
+### getEvent: 
 
 ```
 curl --location --request GET 'http://localhost:3000/api/events?userId=1111' \
@@ -19,7 +20,7 @@ curl --location --request GET 'http://localhost:3000/api/events?userId=1111' \
 }'
 ```
 
-postEvent:
+### postEvent:
 ```
 curl --location 'http://localhost:3000/api/events/create' \
 --header 'x-my-app-test-auth: 1111' \
@@ -34,7 +35,7 @@ curl --location 'http://localhost:3000/api/events/create' \
 }'
 ```
 
-updateEvent:
+### updateEvent:
 ```
 curl --location --request PATCH 'http://localhost:3000/api/events/update?eventId=123' \
 --header 'x-my-app-test-auth: 1111' \
