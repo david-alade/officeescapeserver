@@ -1,8 +1,11 @@
 {
   "name": "officeescapeserver",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node ./dist/app.js",
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node ./app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -10,6 +13,14 @@
   "description": "",
   "dependencies": {
     "@supabase/supabase-js": "^2.44.1",
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.2",
+    "ts-node": "^10.9.2"
   }
 }
