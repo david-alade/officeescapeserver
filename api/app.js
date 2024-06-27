@@ -18,6 +18,7 @@ app.post("/data", (req, res) => {
 
 // Start the server
 app.listen(port, () => {
+  console.log('hello world');
   console.log(`Server is running on http://localhost:${port}`);
 });
 
