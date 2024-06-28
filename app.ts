@@ -1,6 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
+import compression from 'compression';
 import { errorHandler } from './api/middlewares/errorHandler';
 import userRoutes from './api/routes/userRoutes';
 import eventRoutes from './api/routes/eventRoutes';
@@ -9,6 +10,7 @@ dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(compression());
 
 // Middleware to log incoming requests
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -18,6 +20,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Routes
+
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 

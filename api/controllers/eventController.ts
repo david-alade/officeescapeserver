@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import * as eventService from '../services/eventService';
-import { AuthRequest } from '../middlewares/authMiddleware';
+import { Request, Response, NextFunction } from "express";
+import * as eventService from "../services/eventService";
+import { AuthRequest } from "../middlewares/authMiddleware";
+import * as aiService from "../services/AISERVICE";
 
 export const getEvents = async (
   req: AuthRequest,
@@ -19,7 +20,7 @@ export const getEvents = async (
     console.log('Event fetched');
     res.status(200).json(events);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching events' });
+    res.status(500).json({ message: "Error fetching events" });
   }
 };
 
@@ -47,7 +48,7 @@ export const createEvent = async (
       category,
       jpmcLocation
     );
-    console.log('Event created');
+    console.log("Event created");
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -70,8 +71,29 @@ export const updateEvent = async (
       category,
       jpmcLocation
     );
-    console.log('Event updated');
+    console.log("Event updated");
     res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const recommendedAI = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { interests, query } = req.body as {
+      interests: string;
+      query: string;
+    };
+
+    await aiService.openAiStreamEventResponse(
+      query + ". Here are my interests: " + interests,
+      res
+    );
+
   } catch (error) {
     next(error);
   }

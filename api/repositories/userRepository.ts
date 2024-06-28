@@ -234,5 +234,5 @@ export const acceptFriendRequest = async (userId: string, id: string) => {
 };
 
 export const getEventsForFriends = async (userId: string) => {
-  // Implement logic to fetch events for a user's friends from your database
+  
 };
