@@ -12,7 +12,11 @@ export const getEvents = async (
     console.log(req.tokenUserID);
     console.log(jpmcLocation);
 
-    const events = await eventService.getEvents(req.tokenUserID! as unknown as number, jpmcLocation);
+    const events = await eventService.getEvents(
+      req.tokenUserID! as unknown as number,
+      jpmcLocation
+    );
+    console.log('Event fetched');
     res.status(200).json(events);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching events' });
