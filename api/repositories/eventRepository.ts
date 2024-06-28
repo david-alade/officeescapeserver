@@ -1,7 +1,7 @@
 import { supabase } from '../SupabaseClient';
 
 
-export const getBeenToEvents = async (userId: number, event_user_id: number) => {
+export const postBeenToEvents = async (userId: number, event_user_id: number) => {
   try {
     if (!supabase) {
         throw new Error("Supabase client is not initialized");
@@ -15,11 +15,9 @@ export const getBeenToEvents = async (userId: number, event_user_id: number) => 
     if (eventError) {
         throw eventError;
     }
-
     if (!eventData) {
         throw new Error(`Event with ID ${event_user_id} not found.`);
     }
-
     const eventsUserIds = eventData.events_user_ids || [];
     if (eventsUserIds.includes(userId)) {
         console.log(`User ${userId} has already attended event ${event_user_id}`);
@@ -35,7 +33,6 @@ export const getBeenToEvents = async (userId: number, event_user_id: number) => 
     if (updateError) {
         throw updateError;
     }
-
     console.log(`User ${userId} added to event ${event_user_id}`);
     return "User added to event successfully.";
 } catch (error) {
@@ -43,6 +40,34 @@ export const getBeenToEvents = async (userId: number, event_user_id: number) => 
     throw error;
 }
 };
+
+export const getUsernameBeenToEvent = async (userId: string) => {
+  try {
+    if (!supabase) {
+        throw new Error("Supabase client is not initialized");
+    }
+
+    const { data: userData, error: userError } = await supabase
+        .from('User')
+        .select('name')
+        .eq('id', userId)
+        .single();
+
+    if (userError) {
+        throw userError;
+    }
+
+    if (!userData) {
+        throw new Error(`Event with ID ${userId} not found.`);
+    }
+    console.log(`User ${userId} is going to event ${userId}`);
+    return userData;
+} catch (error) {
+    console.error(`Error getting user ${userId} for event`, error);
+    throw error;
+}
+};
+
 
 export const getEvents = async (userId: number, jpmcLocation: string) => {
   try {

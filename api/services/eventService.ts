@@ -1,4 +1,6 @@
 import * as eventRepository from '../repositories/eventRepository';
+import * as userService from '../services/userService';
+
 
 export const getEvents = async (userId: number, jpmcLocation: string) => {
   try {
@@ -57,10 +59,22 @@ export const updateEvent = async (
 };
 
 
-export const getBeenToEvents = async (userId: number, event_user_id: number) => {
+export const postBeenToEvents = async (userId: number, event_user_id: number) => {
   try {
-    const events = await eventRepository.getBeenToEvents(userId, event_user_id);
-    return events;
+    const events = await eventRepository.postBeenToEvents(userId, event_user_id);
+    // const { name } = await userService.getUser(String(userId))
+    return { name, events };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+export const getUsernameBeenToEvent = async (userId: string) => {
+  try {
+    const userdata = await eventRepository.getUsernameBeenToEvent(userId);
+    return userdata;
   } catch (error) {
     console.error(error);
     throw error;

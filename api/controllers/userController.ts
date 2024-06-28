@@ -22,7 +22,7 @@ export const getUser = async (
 ) => {
   try {
     const { name, bio, interests, jpmc_location } = req.body;
-    const user = await userService.getUser(req.tokenUserID!, name, bio, interests, jpmc_location);
+    const user = await userService.getUser(req.tokenUserID!);
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -91,8 +91,8 @@ export const sendFriendRequest = async (req: AuthRequest, res: Response, next: N
 
 export const acceptFriendRequest = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-      const { requestId } = req.params;
-      await userService.acceptFriendRequest(req.tokenUserID!, requestId);
+      const { friendId } = req.params;
+      await userService.acceptFriendRequest(req.tokenUserID!, friendId);
       res.status(200).json({ message: 'Friend request accepted successfully.' });
   } catch (error) {
       next(error);

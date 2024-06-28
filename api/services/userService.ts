@@ -20,11 +20,7 @@ export const updateUser = async (
 
 
 export const getUser = async (
-  userId: string,
-  name: string,
-  bio: string,
-  interests: string[],
-  jpmc_location: string[]
+  userId: string
 ) => {
   return await userRepository.getUser(userId);
 };

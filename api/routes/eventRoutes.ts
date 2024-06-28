@@ -13,8 +13,9 @@ router.post(
   eventController.recommendedAI
 );
 
-
 router.post('/beenToEvent', userAuthMiddleware, eventController.beenToEvent);
+router.post('/UsernameBeenToEvent', userAuthMiddleware, eventController.getUsernameBeenToEvent);
+
 
 
 export default router;

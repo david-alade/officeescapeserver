@@ -106,7 +106,7 @@ export const beenToEvent = async (
 ) => {
   try {
     const { event_user_id } = req.body;
-    const events = await eventService.getBeenToEvents(
+    const events = await eventService.postBeenToEvents(
       req.tokenUserID! as unknown as number,
       event_user_id
     );
@@ -115,3 +115,17 @@ export const beenToEvent = async (
     res.status(500).json({ message: 'Error fetching events' });
   }
 };
+
+export const getUsernameBeenToEvent = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await eventService.getUsernameBeenToEvent(req.tokenUserID!);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error getting username' });
+  }
+};
+
