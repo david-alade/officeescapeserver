@@ -76,3 +76,20 @@ export const updateEvent = async (
     next(error);
   }
 };
+
+export const beenToEvent = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { event_user_id } = req.body;
+    const events = await eventService.getBeenToEvents(
+      req.tokenUserID! as unknown as number,
+      event_user_id
+    );
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching events' });
+  }
+};

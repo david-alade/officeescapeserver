@@ -130,3 +130,109 @@ const checkUserExists = async (userID: string) => {
     throw error;
   }
 };
+
+export const addFriend = async (userId: string, friendId: string) => {
+  try {
+    if (!supabase) {
+        throw new Error("Supabase client is not initialized");
+    }
+    const { data: existingFriend, error } = await supabase
+    .from('Friends')
+    .select('friends_list')
+    .eq('id', userId)
+    .single();
+
+    if (error){
+      throw error;
+    }
+    let currentFriendsList: string[] = [];
+
+    if ( existingFriend && existingFriend.friends_list ){
+        currentFriendsList = existingFriend.friends_list as string[];
+    }
+    if (currentFriendsList.includes(friendId)) {
+      return "Friendship already exists!";
+    
+    }
+    const updatedFriendsList = [...currentFriendsList, friendId];
+
+    const { data: updateData, error: updateError } = await supabase
+     .from('Friends')
+     .update({ 'friends_list': updatedFriendsList})
+     .eq('id', userId);
+     console.log("updatingfriend " + friendId);
+
+    if (updateError) {
+        throw updateError;
+    }
+    console.log(`Friend added: ${userId} <-> ${friendId}`);
+    return updateData;
+} catch (error) {
+    console.error(`Error adding friend: ${userId} <-> ${friendId}`, error);
+    throw error;
+}
+};
+export const removeFriend = async (userId: string, friendId: string) => {
+  
+};
+
+export const sendFriendRequest = async (userId: string, friendId: string) => {
+  try {
+    if (!supabase) {
+        throw new Error("Supabase client is not initialized");
+    }
+    const { data, error } = await supabase
+        .from('FriendRequests')
+        .insert([{ 'fromUserId': userId, "toUserId": friendId , "status": "pending"}]);
+
+    if (error) {
+        throw error;
+    }
+
+    console.log(`Friend request sent from ${userId} to ${friendId}`);
+    return data;
+  } catch (error) {
+      console.error(`Error sending friend request from ${userId} to ${friendId}`, error);
+      throw error;
+  }
+};
+
+export const acceptFriendRequest = async (userId: string, id: string) => {
+    try {
+      if (!supabase) {
+          throw new Error("Supabase client is not initialized");
+      }
+      console.log(userId);
+      console.log(id);
+      const { data: request, error } = await supabase
+          .from('FriendRequests')
+          .select('*')
+          .eq('fromUserId', id)
+          .single();
+      console.log(request);
+      if (error) {
+          throw error;
+      }
+
+      if (!request) {
+          throw new Error(`Friend request from ${id} not found`);
+      }
+
+      const friendId = request.fromUserId;
+      await supabase
+          .from('FriendRequests')
+          .delete()
+          .eq('fromUserId', id);
+
+      await addFriend(userId, friendId);
+      console.log(`Friend request accepted from ${friendId}`);
+      return { friendId: friendId };
+  } catch (error) {
+      console.error(`Error accepting friend request for ${userId} from user ${id}`, error);
+      throw error;
+  }
+};
+
+export const getEventsForFriends = async (userId: string) => {
+  // Implement logic to fetch events for a user's friends from your database
+};

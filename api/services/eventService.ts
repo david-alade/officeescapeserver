@@ -55,3 +55,14 @@ export const updateEvent = async (
     throw error;
   }
 };
+
+
+export const getBeenToEvents = async (userId: number, event_user_id: number) => {
+  try {
+    const events = await eventRepository.getBeenToEvents(userId, event_user_id);
+    return events;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
