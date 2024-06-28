@@ -8,7 +8,7 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const user = await userService.createUser(req.tokenUserID!);
+    await userService.createUser(req.tokenUserID!);
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -27,7 +27,6 @@ export const getUser = async (
   } catch (error) {
     next(error);
   }
-
 };
 
 export const updateUser = async (
@@ -52,8 +51,8 @@ export const getUserEvents = async (
 ) => {
   try {
     console.log("getting events user is attending");
-    const user = await userService.getEventsForUser(req.tokenUserID!);
-    res.status(204).end();
+    const events = await userService.getEventsForUser(req.tokenUserID!);
+    res.status(200).json(events);
   } catch (error) {
     next(error);
   }

@@ -5,8 +5,8 @@ export const getEvents = async (userId: number, jpmcLocation: string) => {
     const { data, error } = await supabase
       .from('Event')
       .select('*')
-      .eq('userId', userId)
       .eq('jpmcLocation', jpmcLocation);
+
     console.log('event data', data);
 
     if (error) {

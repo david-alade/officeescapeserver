@@ -26,7 +26,7 @@ export const getUser = async (
   interests: string[],
   jpmc_location: string[]
 ) => {
-  await userRepository.getUser(userId);
+  return await userRepository.getUser(userId);
 };
 
 export const getEventsForUser = async (userId: string) => {
