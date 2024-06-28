@@ -29,3 +29,9 @@ export const getUser = async (
   await userRepository.getUser(userId);
 };
 
+export const getEventsForUser = async (userId: string) => {
+  console.log("Preparing to connect to DB")
+  await userRepository.getEventsForUser(userId);
+};
+
+

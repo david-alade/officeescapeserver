@@ -1,0 +1,5 @@
+export enum Colors {
+  paloalto = "Palo Alto",
+  seattle = "Seattle",
+  newyork = "New york"
+}
