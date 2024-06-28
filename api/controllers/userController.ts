@@ -9,7 +9,6 @@ export const createUser = async (
 ) => {
   try {
     const user = await userService.createUser(req.tokenUserID!);
-    console.log("User created");
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -45,3 +44,18 @@ export const updateUser = async (
     next(error);
   }
 };
+
+export const getUserEvents = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log("getting events user is attending");
+    const user = await userService.getEventsForUser(req.tokenUserID!);
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
